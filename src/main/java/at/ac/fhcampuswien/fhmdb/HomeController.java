@@ -12,9 +12,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.function.Function;
@@ -23,6 +27,13 @@ import java.util.stream.Collectors;
 public class HomeController implements Initializable {
     @FXML
     public JFXButton searchBtn;
+
+    @FXML
+    public Button homeBtn;
+    @FXML
+    public Button watchlistBtn;
+    @FXML
+    public Button aboutBtn;
 
     @FXML
     public TextField searchField;
@@ -43,6 +54,8 @@ public class HomeController implements Initializable {
     public JFXButton sortBtn;
 
     public List<Movie> allMovies;
+    @FXML
+    public VBox mainBox;
 
     protected ObservableList<Movie> observableMovies = FXCollections.observableArrayList();
 
@@ -81,7 +94,7 @@ public class HomeController implements Initializable {
 
     public void initializeLayout() {
         movieListView.setItems(observableMovies);   // set the items of the listview to the observable list
-        movieListView.setCellFactory(movieListView -> new MovieCell()); // apply custom cells to the listview
+        movieListView.setCellFactory(movieListView -> new MovieCell("Watchlist")); // apply custom cells to the listview
 
         // genre combobox
         Object[] genres = Genre.values();   // get all genres
@@ -242,5 +255,30 @@ public class HomeController implements Initializable {
         return movies.stream()
                 .filter(movie -> movie.getReleaseYear() >= startYear && movie.getReleaseYear() <= endYear)
                 .collect(Collectors.toList());
+    }
+
+    public void loadView(String path){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
+
+        try {
+            mainBox.getChildren().clear();
+            mainBox.getChildren().add(fxmlLoader.load());
+        } catch (IOException e) {
+            System.out.println("Error while loading");
+        }
+    }
+
+
+    public void loadHome() {
+        loadView("home-view.fxml");
+    }
+
+    public void loadWatchList() {
+        loadView("watch-list-view.fxml");
+    }
+
+    public void loadAbout() {
+        loadView("watch-list-view.fxml");
+
     }
 }
