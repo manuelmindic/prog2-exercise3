@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import static at.ac.fhcampuswien.fhmdb.ui.MovieCell.showExceptionAlert;
 
 public class Database {
-    public static final String DB_URL = "jdbc:h2:file: ./db/watchlistdb";
+    public static final String DB_URL = "jdbc:h2:file: ./db/watchlistDB";
     public static final String user = "JamesPonce";
     public static final String password = "MITP?";
 
@@ -27,7 +27,7 @@ public class Database {
         try {
             createConnectionSource();
             dao = DaoManager.createDao(connectionSource,WatchlistMovieEntity.class);
-            createTables();
+//            createTables();
         } catch (SQLException e){
             String title = "Error";
             String headerText = "Error while initializing database";

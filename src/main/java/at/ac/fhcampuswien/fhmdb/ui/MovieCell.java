@@ -1,10 +1,13 @@
 package at.ac.fhcampuswien.fhmdb.ui;
 
+import at.ac.fhcampuswien.fhmdb.HomeController;
+import at.ac.fhcampuswien.fhmdb.WatchListViewController;
 import at.ac.fhcampuswien.fhmdb.data.Database;
 import at.ac.fhcampuswien.fhmdb.data.WatchlistRepository;
 import at.ac.fhcampuswien.fhmdb.exceptions.DatabaseException;
 import at.ac.fhcampuswien.fhmdb.models.Movie;
 import com.jfoenix.controls.JFXButton;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -75,6 +78,7 @@ public class MovieCell extends ListCell<Movie> {
             watchlistBtn.setOnMouseClicked(mouseEvent -> {
                 try {
                     repository.removeFromWatchlist(getItem());
+
                 } catch (SQLException e) {
                     String title = "Error";
                     String headerText = "Error while removing item from watchlist";
@@ -137,6 +141,7 @@ public class MovieCell extends ListCell<Movie> {
             setGraphic(layout);
         }
     }
+
     //https://www.youtube.com/watch?v=rhlchwZstcw&t=396s
     //UI for displaying Exceptions to the User during Runtime in the Application
     public static void showExceptionAlert(String title, String headerText, String contentText, Exception ex) {

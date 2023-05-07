@@ -153,4 +153,8 @@ public class Movie {
 
         return movies;
     }
+
+    public String getId() {
+        return id;
+    }
 }

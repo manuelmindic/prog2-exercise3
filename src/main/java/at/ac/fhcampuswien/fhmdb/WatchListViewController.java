@@ -3,6 +3,7 @@ package at.ac.fhcampuswien.fhmdb;
 import at.ac.fhcampuswien.fhmdb.api.MovieAPI;
 import at.ac.fhcampuswien.fhmdb.data.WatchlistMovieEntity;
 import at.ac.fhcampuswien.fhmdb.data.WatchlistRepository;
+import at.ac.fhcampuswien.fhmdb.exceptions.DatabaseException;
 import at.ac.fhcampuswien.fhmdb.models.Genre;
 import at.ac.fhcampuswien.fhmdb.models.Movie;
 import at.ac.fhcampuswien.fhmdb.models.SortedState;
@@ -56,7 +57,10 @@ public class WatchListViewController {
         try {
             movieEntities = repository.readAllMovies();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            String title = "Error";
+            String headerText = "Error for database";
+            String contentText = "The following error occurred: " + e.getMessage();
+            showExceptionAlert(title, headerText, contentText + e.getMessage(), new DatabaseException(e));
         }
 
         for (WatchlistMovieEntity element : movieEntities){

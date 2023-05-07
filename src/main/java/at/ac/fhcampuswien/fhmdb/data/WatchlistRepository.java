@@ -16,11 +16,15 @@ public class WatchlistRepository {
     }
 
     public void addToWatchlist(Movie movie) throws SQLException {
-        dao.create(movieToWatchlist(movie));
+        if (dao.queryForMatching(movieToWatchlist(movie)).isEmpty()){
+            dao.create(movieToWatchlist(movie));
+        }else {
+            System.out.println("Object already exists");
+        }
     }
 
     public void removeFromWatchlist(Movie movie) throws SQLException {
-        dao.delete(movieToWatchlist(movie));
+        dao.delete(dao.queryForEq("apiId",movie.getId()));
     }
 
     public List<WatchlistMovieEntity> readAllMovies() throws SQLException{
@@ -28,6 +32,6 @@ public class WatchlistRepository {
     }
 
     private WatchlistMovieEntity movieToWatchlist(Movie movie){
-        return new WatchlistMovieEntity("1",movie.getTitle(), movie.getDescription(), WatchlistMovieEntity.genresToString(movie.getGenres()),movie.getReleaseYear(),movie.getImgUrl(),movie.getLengthInMinutes(),movie.getRating());
+        return new WatchlistMovieEntity(movie.getId(),movie.getTitle(), movie.getDescription(), WatchlistMovieEntity.genresToString(movie.getGenres()),movie.getReleaseYear(),movie.getImgUrl(),movie.getLengthInMinutes(),movie.getRating());
     }
 }
