@@ -1,5 +1,6 @@
 package at.ac.fhcampuswien.fhmdb.data;
 
+import at.ac.fhcampuswien.fhmdb.exceptions.DatabaseException;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
@@ -31,7 +32,7 @@ public class Database {
             String title = "Error";
             String headerText = "Error while initializing database";
             String contentText = "The following error occurred while initializing the database:";
-            showExceptionAlert(title, headerText, contentText, e);
+            showExceptionAlert(title, headerText, contentText, new DatabaseException(e));
         }
     }
 

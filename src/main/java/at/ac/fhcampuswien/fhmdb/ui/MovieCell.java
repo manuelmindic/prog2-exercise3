@@ -2,6 +2,7 @@ package at.ac.fhcampuswien.fhmdb.ui;
 
 import at.ac.fhcampuswien.fhmdb.data.Database;
 import at.ac.fhcampuswien.fhmdb.data.WatchlistRepository;
+import at.ac.fhcampuswien.fhmdb.exceptions.DatabaseException;
 import at.ac.fhcampuswien.fhmdb.models.Movie;
 import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Insets;
@@ -67,7 +68,7 @@ public class MovieCell extends ListCell<Movie> {
                     String title = "Error";
                     String headerText = "Error while adding item to watchlist";
                     String contentText = "The following error occurred while adding the item to watchlist:";
-                    showExceptionAlert(title, headerText, contentText, e);
+                    showExceptionAlert(title, headerText, contentText, new DatabaseException(headerText, e));
                 }
             });
         } else if (watchlistBtn.getText().equals("Remove")) {
@@ -78,7 +79,7 @@ public class MovieCell extends ListCell<Movie> {
                     String title = "Error";
                     String headerText = "Error while removing item from watchlist";
                     String contentText = "The following error occurred while removing the item from watchlist:";
-                    showExceptionAlert(title, headerText, contentText, e);
+                    showExceptionAlert(title, headerText, contentText, new DatabaseException(headerText, e));
                 }
             });
         }

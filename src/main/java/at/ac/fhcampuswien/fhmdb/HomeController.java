@@ -271,7 +271,10 @@ public class HomeController implements Initializable {
             Stage stage = (Stage)mainBox.getScene().getWindow();
             stage.setScene(scene);
         } catch (IOException e) {
-            showExceptionAlert("Error", "Error while loading the view", "The following error occurred while loading the view: " + e.getMessage(), e);
+            String title = "Error";
+            String headerText = "Error while loading the view";
+            String contentText = "The following error occurred while loading the view: " + e.getMessage();
+            showExceptionAlert(title, headerText, contentText + e.getMessage(), new IllegalArgumentException(e));
         }
     }
 
