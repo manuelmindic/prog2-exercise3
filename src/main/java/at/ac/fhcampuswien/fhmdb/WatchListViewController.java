@@ -13,8 +13,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.w3c.dom.Entity;
 
 import java.io.IOException;
@@ -25,6 +27,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+
+import static at.ac.fhcampuswien.fhmdb.ui.MovieCell.showExceptionAlert;
 
 public class WatchListViewController {
 
@@ -74,10 +78,14 @@ public class WatchListViewController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
 
         try {
-            mainBox.getChildren().clear();
-            mainBox.getChildren().add(fxmlLoader.load());
+//            mainBox.getChildren().clear();
+//            mainBox.getChildren().add(fxmlLoader.load());
+            Scene scene = new Scene(fxmlLoader.load(), 890, 620);
+            Stage stage = (Stage)mainBox.getScene().getWindow();
+            stage.setScene(scene);
         } catch (IOException e) {
-            e.printStackTrace();
+            showExceptionAlert("Error", "Error while loading the view", "The following error occurred while loading the view: " + e.getMessage(), e);
+
         }
     }
 

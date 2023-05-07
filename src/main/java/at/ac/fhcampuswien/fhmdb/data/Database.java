@@ -9,6 +9,8 @@ import javafx.scene.chart.PieChart;
 
 import java.sql.SQLException;
 
+import static at.ac.fhcampuswien.fhmdb.ui.MovieCell.showExceptionAlert;
+
 public class Database {
     public static final String DB_URL = "jdbc:h2:file: ./db/watchlistdb";
     public static final String user = "JamesPonce";
@@ -26,7 +28,10 @@ public class Database {
             dao = DaoManager.createDao(connectionSource,WatchlistMovieEntity.class);
             createTables();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            String title = "Error";
+            String headerText = "Error while initializing database";
+            String contentText = "The following error occurred while initializing the database:";
+            showExceptionAlert(title, headerText, contentText, e);
         }
     }
 
